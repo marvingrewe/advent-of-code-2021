@@ -8,6 +8,11 @@ fun main() {
         return depthIncreases
     }
 
+    fun part1func(rawInput: List<String>): Int {
+        val input = rawInput.map(String::toInt)
+        return input.zipWithNext().count { it.first < it.second }
+    }
+
     fun part2(rawInput: List<String>): Int {
         val input = rawInput.map(String::toInt)
         var depthIncreases = 0
@@ -31,6 +36,7 @@ fun main() {
 
     val input = readInput("Day01")
     println(part1(input))
+    println(part1func(input))
     println(part2(input))
     println(part2func(input))
 }
