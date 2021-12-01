@@ -1,17 +1,19 @@
 fun main() {
-    fun part1(input: List<String>): Int {
+    fun part1(rawInput: List<String>): Int {
+        val input = rawInput.map(String::toInt)
         var depthIncreases = 0
         for (i in 1 until input.size) {
-            if (input[i].toInt() > input[i - 1].toInt()) depthIncreases++
+            if (input[i] > input[i - 1]) depthIncreases++
         }
         return depthIncreases
     }
 
-    fun part2(input: List<String>): Int {
+    fun part2(rawInput: List<String>): Int {
+        val input = rawInput.map(String::toInt)
         var depthIncreases = 0
-        var previousWindow = input[0].toInt() + input[1].toInt() + input[2].toInt()
+        var previousWindow = input[0] + input[1] + input[2]
         for (i in 3 until input.size) {
-            val currentWindow = input[i].toInt() + input[i - 1].toInt() + input[i - 2].toInt()
+            val currentWindow = input[i] + input[i - 1] + input[i - 2]
             if (currentWindow > previousWindow) depthIncreases++
             previousWindow = currentWindow
         }
