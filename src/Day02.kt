@@ -21,6 +21,17 @@ fun main() {
         }
     }.let { it.first * it.second }
 
+    fun part2func(input: List<String>): Int =
+        input.map { element -> element.split(" ").let { Pair(it[0], it[1].toInt()) } }
+            .fold(Triple(0, 0, 0)) { (depth, distance, aim), (direction, value) ->
+                when (direction) {
+                    "forward" -> Triple(depth + aim * value, distance + value, aim)
+                    "down" -> Triple(depth, distance, aim + value)
+                    "up" -> Triple(depth, distance, aim - value)
+                    else -> throw IllegalArgumentException()
+                }
+            }.let { it.first * it.second }
+
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day02_test")
     check(part2(testInput) == 900)
