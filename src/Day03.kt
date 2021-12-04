@@ -10,8 +10,8 @@ fun main() {
         val gam = StringBuilder()
         val eps = StringBuilder()
         count.map {
-            gam.append( if (it > 0) 1 else 0)
-            eps.append( if (it > 0) 0 else 1)
+            gam.append(if (it > 0) 1 else 0)
+            eps.append(if (it > 0) 0 else 1)
         }
         return gam.toString().toInt(2) * eps.toString().toInt(2)
     }

@@ -43,7 +43,8 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         val numbers = input[0].split(",").map(String::toInt)
-        val boards = input.asSequence().drop(2).filter { it.isNotBlank() }.chunked(5).map(List<String>::toBoard).toMutableList()
+        val boards =
+            input.asSequence().drop(2).filter { it.isNotBlank() }.chunked(5).map(List<String>::toBoard).toMutableList()
         for (currentNumber in numbers) {
             if (boards.size > 1) boards.removeIf { it.mark(currentNumber) }
             if (boards.size == 1 && boards[0].mark(currentNumber)) return boards[0].sumOfUnmarked() * currentNumber
