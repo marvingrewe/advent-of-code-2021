@@ -1,10 +1,10 @@
 fun main() {
 
-    fun List<String>.toBoard(): Board = this.map { line ->
+    fun List<String>.toBoard(): BingoBoard = this.map { line ->
         line.trim().split("""\W+""".toRegex()).map { Pair(it.toInt(), false) }.toTypedArray()
     }.toTypedArray()
 
-    fun Board.mark(drawnNumber: Int): Boolean {
+    fun BingoBoard.mark(drawnNumber: Int): Boolean {
         for (i in this.indices) {
             for (j in this[i].indices) {
                 val cell = this[i][j]
@@ -19,7 +19,7 @@ fun main() {
         return false
     }
 
-    fun Board.sumOfUnmarked(): Int {
+    fun BingoBoard.sumOfUnmarked(): Int {
         var sum = 0
         for (i in this.indices) {
             for (j in this[i].indices) {
@@ -64,4 +64,4 @@ fun main() {
     println(part2(input))
 }
 
-typealias Board = Array<Array<Pair<Int, Boolean>>>
+typealias BingoBoard = Array<Array<Pair<Int, Boolean>>>
