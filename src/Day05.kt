@@ -1,6 +1,7 @@
 import java.lang.Integer.min
 import kotlin.math.absoluteValue
 import kotlin.math.max
+import kotlin.system.measureTimeMillis
 
 fun main() {
     fun List<String>.toLines(): List<Line> = this.map { line ->
@@ -68,16 +69,13 @@ fun main() {
 
     val input = readInput("Day05")
 
-    val start = System.currentTimeMillis()
-    val part1 = part1(input)
-    val middle = System.currentTimeMillis()
-    val part2 = part2(input)
-    val end = System.currentTimeMillis()
+    println(part1(input))
+    println(part2(input))
 
-    println("part1: ${middle - start}ms")
-    println("part2: ${end - middle}ms")
-    println(part1)
-    println(part2)
+    val speedPart1 = measureTimeMillis { repeat(1000) { part1(input) } }
+    val speedPart2 = measureTimeMillis { repeat(1000) { part2(input) } }
+    println("part1: ${speedPart1}ms")
+    println("part2: ${speedPart2}ms")
 }
 
 
