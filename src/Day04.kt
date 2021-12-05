@@ -32,7 +32,7 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         val numbers = input[0].split(",").map(String::toInt)
-        val boards = input.drop(2).filter { it.isNotBlank() }.chunked(5).map(List<String>::toBoard)
+        val boards = input.asSequence().drop(2).filter { it.isNotBlank() }.chunked(5).map(List<String>::toBoard).toList()
         for (currentNumber in numbers) {
             for (currentBoard in boards) {
                 if (currentBoard.mark(currentNumber)) return currentBoard.sumOfUnmarked() * currentNumber//.also { println("currentNumber: $currentNumber") }
@@ -59,9 +59,17 @@ fun main() {
     check(part2(testInput) == 1924)
 
     val input = readInput("Day04")
-    //println(part1(testInput))
-    println(part1(input))
-    println(part2(input))
+
+    val start = System.currentTimeMillis()
+    val part1 = part1(input)
+    val middle = System.currentTimeMillis()
+    val part2 = part2(input)
+    val end = System.currentTimeMillis()
+
+    println("part1: ${middle - start}ms")
+    println("part2: ${end - middle}ms")
+    println(part1)
+    println(part2)
 }
 
 typealias BingoBoard = Array<Array<Pair<Int, Boolean>>>

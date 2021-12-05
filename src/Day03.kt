@@ -45,8 +45,8 @@ fun main() {
             }
             if (co2Input.size == 1) break
         }
-        println("oxyInput: $oxyInput")
-        println("co2Input: $co2Input")
+        //println("oxyInput: $oxyInput")
+        //println("co2Input: $co2Input")
         return oxyInput[0].toInt(2) * co2Input[0].toInt(2)
     }
 
@@ -56,8 +56,15 @@ fun main() {
     check(part2(testInput) == 230)
 
     val input = readInput("Day03")
-    println(part1(input))
-    println(part2(input))
 
-    //println("01001".toUInt(2))
+    val start = System.currentTimeMillis()
+    val part1 = part1(input)
+    val middle = System.currentTimeMillis()
+    val part2 = part2(input)
+    val end = System.currentTimeMillis()
+
+    println("part1: ${middle - start}ms")
+    println("part2: ${end - middle}ms")
+    println(part1)
+    println(part2)
 }

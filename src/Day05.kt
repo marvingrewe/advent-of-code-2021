@@ -68,8 +68,16 @@ fun main() {
 
     val input = readInput("Day05")
 
-    println(part1(input))
-    println(part2(input))
+    val start = System.currentTimeMillis()
+    val part1 = part1(input)
+    val middle = System.currentTimeMillis()
+    val part2 = part2(input)
+    val end = System.currentTimeMillis()
+
+    println("part1: ${middle - start}ms")
+    println("part2: ${end - middle}ms")
+    println(part1)
+    println(part2)
 }
 
 
