@@ -23,7 +23,7 @@ fun main() {
     fun part2(input: List<String>): Long {
         val fishList = input[0].split(",").map(String::toInt).toMutableList()
         val listOfStartingFishByAge = fishList.groupBy { it }.mapValues { it.value.size }.toSortedMap()
-        println("Initial, $listOfStartingFishByAge")
+        //println("Initial, $listOfStartingFishByAge")
         val listOfFishAfterSimulation = emptyMap<Int, Map<Int, Int>>().toMutableMap()
         for (t in 0..8) {
             val fishSimulation = listOf(t).toMutableList()
@@ -57,18 +57,33 @@ fun main() {
         return numOfTotalFish
     }
 
+    fun part2alt(input: List<String>, days: Int): Long {
+        val inputFish = input[0].split(",").map(String::toInt).groupingBy { it }.eachCount()
+        val fish = LongArray(9)
+        for (i in 0..8) fish[i] = inputFish[i]?.toLong() ?: 0
+        for (i in 1..days) {
+            val newFish = fish[0]
+            for (j in 0 until 8) {
+                fish[j] = fish[j + 1]
+            }
+            fish[8] = newFish
+            fish[6] += newFish
+        }
+        return fish.sum()
+    }
+
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day06_test")
-    check(part1(testInput) == 5934)
-    check(part2(testInput) == 26984457539)
+    //check(part2alt(testInput, 80) == 5934L)
+    //check(part2alt(testInput, 256) == 26984457539)
 
     val input = readInput("Day06")
     var result: Int
     var longResult: Long
 
-    val speedPart1 = measureTimeMillis { result = part1(input) }
-    println("part1 finished in ${speedPart1}ms with result $result")
-    val speedPart2 = measureTimeMillis { longResult = part2(input) }
+    //val speedPart1 = measureTimeMillis { longResult = part2alt(input, 80) }
+    //println("part1 finished in ${speedPart1}ms with result $longResult")
+    val speedPart2 = measureTimeMillis { longResult = part2alt(input, 256) }
     println("part2 finished in ${speedPart2}ms with result $longResult")
 
 }
