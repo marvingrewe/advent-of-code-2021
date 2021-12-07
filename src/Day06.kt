@@ -61,13 +61,17 @@ fun main() {
         val inputFish = input[0].split(",").map(String::toInt).groupingBy { it }.eachCount()
         val fish = LongArray(9)
         for (i in 0..8) fish[i] = inputFish[i]?.toLong() ?: 0
-        for (i in 1..days) {
+        for (i in 0 until days) {
+            /*
             val newFish = fish[0]
             for (j in 0 until 8) {
                 fish[j] = fish[j + 1]
             }
             fish[8] = newFish
             fish[6] += newFish
+             */
+            fish[(i + 7) % 9] += fish[i % 9]
+            //println("Day $i: ${fish.contentToString()}")
         }
         return fish.sum()
     }
@@ -78,12 +82,10 @@ fun main() {
     //check(part2alt(testInput, 256) == 26984457539)
 
     val input = readInput("Day06")
-    var result: Int
-    var longResult: Long
+    var result: Any
 
-    //val speedPart1 = measureTimeMillis { longResult = part2alt(input, 80) }
-    //println("part1 finished in ${speedPart1}ms with result $longResult")
-    val speedPart2 = measureTimeMillis { longResult = part2alt(input, 256) }
-    println("part2 finished in ${speedPart2}ms with result $longResult")
+    //println("Part 1 solved in ${measureTimeMillis { result = part2alt(input, 80) }}ms with result: $result")
+    //println("Part 2 solved in ${measureTimeMillis { result = part2alt(input, 256) }}ms with result: $result")
+    println("Part 3 solved in ${measureTimeMillis { result = part2alt(input, 434) }}ms with result: $result")
 
 }
