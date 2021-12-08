@@ -5,18 +5,13 @@ fun main() {
 
     fun part1(input: List<String>): Int {
         return input.flatMap { it.split(" | ")[1].split(" ") }
-            .count { it.length in listOf(2, 3, 4, 7) }
+            .count { it.length in obviousNumbers }
     }
 
     fun part2(input: List<String>): Int {
         var sum = 0
         for (i in input.indices) {
-            val (pattern, output) = with(input[i].split(" | ").map { s -> s.split(" ").map { it.toSet() } }) {
-                Pair(
-                    component1(),
-                    component2()
-                )
-            }
+            val (pattern, output) = input[i].split(" | ").map { s -> s.split(" ").map { it.toSet() } }
             val code = mutableMapOf<Int, Set<Char>>()
             // first round of deduction: obvious numbers (1, 4, 7, 8)
             for (it in pattern) {

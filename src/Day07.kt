@@ -5,29 +5,29 @@ fun main() {
     fun part1(input: List<String>): Int {
         val crabs = input[0].split(",").map(String::toInt)
         val maxIndex = crabs.maxOf { it }
-        var oil = Int.MAX_VALUE
+        var fuel = Int.MAX_VALUE
         for (i in 0..maxIndex) {
             val currentOil = crabs.sumOf { (it - i).absoluteValue }
-            if (currentOil < oil) {
-                oil = currentOil
+            if (currentOil < fuel) {
+                fuel = currentOil
             }
         }
         //println("Position: $position, Oil: $oil")
-        return oil
+        return fuel
     }
 
     fun part2(input: List<String>): Int {
         val crabs = input[0].split(",").map(String::toInt)
         val maxIndex = crabs.maxOf { it }
-        var oil = Int.MAX_VALUE
+        var fuel = Int.MAX_VALUE
         for (i in 0..maxIndex) {
-            val currentOil = crabs.sumOf { (it - i).absoluteValue * ((it - i).absoluteValue + 1) / 2}
-            if (currentOil < oil) {
-                oil = currentOil
+            val currentOil = crabs.sumOf { (it - i).absoluteValue * ((it - i).absoluteValue + 1) / 2 }
+            if (currentOil < fuel) {
+                fuel = currentOil
             }
         }
         //println("Position: $position, Oil: $oil")
-        return oil
+        return fuel
     }
 
     // test if implementation meets criteria from the description, like:
