@@ -3,15 +3,14 @@ import kotlin.system.measureTimeMillis
 fun main() {
     val obviousNumbers = listOf(2, 3, 4, 7)
 
-    fun part1(input: List<String>): Int {
-        return input.flatMap { it.split(" | ")[1].split(" ") }
-            .count { it.length in obviousNumbers }
-    }
+    fun part1(input: List<String>): Int = input
+        .flatMap { it.split(" | ")[1].split(" ") }
+        .count { it.length in obviousNumbers }
 
     fun part2(input: List<String>): Int {
         var sum = 0
         for (i in input.indices) {
-            val (pattern, output) = input[i].split(" | ").map { s -> s.split(" ").map { it.toSet() } }
+            val (pattern, output) = input[i].split(" | ").map { s -> s.split(" ").map(String::toSet) }
             val code = mutableMapOf<Int, Set<Char>>()
             // first round of deduction: obvious numbers (1, 4, 7, 8)
             for (it in pattern) {
