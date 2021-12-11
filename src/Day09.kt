@@ -67,13 +67,3 @@ fun main() {
     println("Part 1 solved in ${measureTimeMillis { result = part1(input) }}ms with result: $result")
     println("Part 2 solved in ${measureTimeMillis { result = part2(input) }}ms with result: $result")
 }
-
-fun List<List<Int>>.getSafe(x: Int, y: Int): Int? =
-    this.getOrNull(y)?.getOrNull(x)
-
-fun List<List<Int>>.getSafePoint(x: Int, y: Int): Pair<Int, Int>? =
-    if (this.getOrNull(y)?.getOrNull(x) != null) {
-        Pair(x, y)
-    } else {
-        null
-    }
