@@ -41,7 +41,6 @@ fun main() {
 
 fun MutableSet<Pair<Int, Int>>.foldPaper(fold: String) {
     val (alignment, index) = with(fold.split("=")) { Pair(component1().last(), component2().toInt()) }
-    val temp = mutableSetOf<Pair<Int, Int>>()
     if (alignment == 'x') {
         for (point in this.filter { it.first > index }) {
             this.remove(point)
