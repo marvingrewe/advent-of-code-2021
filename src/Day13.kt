@@ -19,7 +19,7 @@ fun main() {
         }
         val output = Array(dots.maxOf { it.second } + 1) { Array(dots.maxOf { it.first } + 1) { "  " } }
         for ((x, y) in dots) {
-            output[y][x] = "##"
+            output[y][x] = "██"
         }
         println(output.map { line -> line.joinToString(" ") { it } }.joinToString("\n") { it })
         return output.size
