@@ -21,7 +21,7 @@ fun main() {
         for ((x, y) in dots) {
             output[y][x] = "##"
         }
-        println(output.map { line -> line.joinToString("") { it } }.joinToString("\n") { it })
+        println(output.map { line -> line.joinToString(" ") { it } }.joinToString("\n") { it })
         return output.size
     }
 
