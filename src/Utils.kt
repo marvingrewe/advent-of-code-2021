@@ -1,6 +1,7 @@
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
 import kotlin.math.abs
 
 /**
@@ -45,26 +46,30 @@ fun heuristicDistance(start: Point, end: Point): Int {
  * A*-algorithm, mostly from https://rosettacode.org/wiki/A*_search_algorithm#Kotlin
  */
 fun aStar(start: Point, finish: Point, grid: Grid): Int {
-    val openVertices = mutableSetOf(start)
+
+    val openSet = PriorityQueue<Pair<Point, Int>> { o1, o2 ->
+        o1.second.compareTo(o2.second)
+    }
+    openSet.add(start to heuristicDistance(start, finish))
+    //val openVertices = mutableSetOf(start)
     val closedVertices = mutableSetOf<Point>()
     val costFromStart = mutableMapOf(start to 0)
-    val estimatedTotalCost = mutableMapOf(start to heuristicDistance(start, finish))
+    //val estimatedTotalCost = mutableMapOf(start to heuristicDistance(start, finish))
 
     val cameFrom = mutableMapOf<Point, Point>() // Used to generate path by back tracking
 
-    while (openVertices.isNotEmpty()) {
+    while (openSet.isNotEmpty()) {
 
-        val currentPos = openVertices.minByOrNull { estimatedTotalCost.getValue(it) }!!
+        val (currentPos, currentValue) = openSet.poll()
 
         // Check if we have reached the finish
         if (currentPos == finish) {
-            return estimatedTotalCost.getValue(finish)
+            //return estimatedTotalCost.getValue(finish)
+            return currentValue
         }
 
-        //if (currentPos.first % 100 == 0 || currentPos.second % 100 == 0) println("currentPos: $currentPos")
-
         // Mark current vertex as closed
-        openVertices.remove(currentPos)
+        //openVertices.remove(currentPos)
         closedVertices.add(currentPos)
 
         grid.getNeighbours(currentPos)
@@ -72,10 +77,13 @@ fun aStar(start: Point, finish: Point, grid: Grid): Int {
             .forEach { neighbour ->
                 val score = costFromStart.getValue(currentPos) + grid.moveCost(neighbour)
                 if (score < costFromStart.getOrDefault(neighbour, Int.MAX_VALUE)) {
-                    openVertices.add(neighbour)
+                    //openVertices.add(neighbour)
                     cameFrom[neighbour] = currentPos
                     costFromStart[neighbour] = score
-                    estimatedTotalCost[neighbour] = score + heuristicDistance(neighbour, finish)
+                    //estimatedTotalCost[neighbour] = score + heuristicDistance(neighbour, finish)
+                    if (openSet.none { it.first == neighbour })
+                        openSet.add(neighbour to score + heuristicDistance(neighbour, finish)
+                    )
                 }
             }
     }
@@ -83,12 +91,12 @@ fun aStar(start: Point, finish: Point, grid: Grid): Int {
     throw IllegalArgumentException("No Path from Start $start to Finish $finish")
 }
 
-fun Grid.getNeighbours(position: Point) : List<Point> = listOfNotNull(
-        this.getSafePoint(position.first, position.second + 1),
-        this.getSafePoint(position.first, position.second - 1),
-        this.getSafePoint(position.first + 1, position.second),
-        this.getSafePoint(position.first - 1, position.second)
-    )
+fun Grid.getNeighbours(position: Point): List<Point> = listOfNotNull(
+    this.getSafePoint(position.first, position.second + 1),
+    this.getSafePoint(position.first, position.second - 1),
+    this.getSafePoint(position.first + 1, position.second),
+    this.getSafePoint(position.first - 1, position.second)
+)
 
 fun Grid.moveCost(to: Point) = this[to.second][to.first]
 
