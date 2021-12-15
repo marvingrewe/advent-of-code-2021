@@ -70,5 +70,3 @@ fun main() {
     println("part1: ${speedPart1}ms")
     println("part2: ${speedPart2}ms")
 }
-
-typealias BingoBoard = Array<Array<Pair<Int, Boolean>>>

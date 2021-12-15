@@ -7,15 +7,15 @@ fun main() {
     fun List<String>.toLines(): List<Line> = this.map { line ->
         val points = line.split(" -> ").map {
             val values = it.split(",")
-            Point(x = values[0].toInt(), y = values[1].toInt())
+            Point(first = values[0].toInt(), second = values[1].toInt())
         }
         Line(points[0], points[1])
     }
 
     fun processInput(input: List<String>): Pair<List<Line>, Array<IntArray>> {
         val inputLines = input.toLines()
-        val xDim = inputLines.maxOf { line -> max(line.first.x, line.second.x) }
-        val yDim = inputLines.maxOf { line -> max(line.first.y, line.second.y) }
+        val xDim = inputLines.maxOf { line -> max(line.first.first, line.second.first) }
+        val yDim = inputLines.maxOf { line -> max(line.first.second, line.second.second) }
         val oceanFloor = Array(yDim + 1) { IntArray(xDim + 1) }
         return Pair(inputLines, oceanFloor)
     }
@@ -23,14 +23,14 @@ fun main() {
     fun part1(input: List<String>): Int {
         val (inputLines, oceanFloor) = processInput(input)
         for ((from, to) in inputLines) {
-            if (from.x == to.x) {
-                val start = min(from.y, to.y)
-                val length = (from.y - to.y).absoluteValue
-                for (i in 0..length) oceanFloor[start + i][from.x]++
-            } else if (from.y == to.y) {
-                val start = min(from.x, to.x)
-                val length = (from.x - to.x).absoluteValue
-                for (i in 0..length) oceanFloor[from.y][start + i]++
+            if (from.first == to.first) {
+                val start = min(from.second, to.second)
+                val length = (from.second - to.second).absoluteValue
+                for (i in 0..length) oceanFloor[start + i][from.first]++
+            } else if (from.second == to.second) {
+                val start = min(from.first, to.first)
+                val length = (from.first - to.first).absoluteValue
+                for (i in 0..length) oceanFloor[from.second][start + i]++
             }
         }
         return oceanFloor.sumOf { line -> line.count { it > 1 } }
@@ -39,23 +39,23 @@ fun main() {
     fun part2(input: List<String>): Int {
         val (inputLines, oceanFloor) = processInput(input)
         for ((from, to) in inputLines) {
-            if (from.x == to.x) {
-                val start = min(from.y, to.y)
-                val length = (from.y - to.y).absoluteValue
-                for (i in 0..length) oceanFloor[start + i][from.x]++
-            } else if (from.y == to.y) {
-                val start = min(from.x, to.x)
-                val length = (from.x - to.x).absoluteValue
-                for (i in 0..length) oceanFloor[from.y][start + i]++
-            } else if (from.x - from.y == to.x - to.y) {
-                val startX = min(from.x, to.x)
-                val startY = min(from.y, to.y)
-                val length = (from.x - to.x).absoluteValue
+            if (from.first == to.first) {
+                val start = min(from.second, to.second)
+                val length = (from.second - to.second).absoluteValue
+                for (i in 0..length) oceanFloor[start + i][from.first]++
+            } else if (from.second == to.second) {
+                val start = min(from.first, to.first)
+                val length = (from.first - to.first).absoluteValue
+                for (i in 0..length) oceanFloor[from.second][start + i]++
+            } else if (from.first - from.second == to.first - to.second) {
+                val startX = min(from.first, to.first)
+                val startY = min(from.second, to.second)
+                val length = (from.first - to.first).absoluteValue
                 for (i in 0..length) oceanFloor[startY + i][startX + i]++
-            } else if (from.x - to.x == to.y - from.y) {
-                val startX = min(from.x, to.x)
-                val startY = max(from.y, to.y)
-                val length = (from.x - to.x).absoluteValue
+            } else if (from.first - to.first == to.second - from.second) {
+                val startX = min(from.first, to.first)
+                val startY = max(from.second, to.second)
+                val length = (from.first - to.first).absoluteValue
                 for (i in 0..length) oceanFloor[startY - i][startX + i]++
             }
         }
@@ -77,8 +77,3 @@ fun main() {
     println("part1: ${speedPart1}ms")
     println("part2: ${speedPart2}ms")
 }
-
-
-typealias Line = Pair<Point, Point>
-
-data class Point(val x: Int, val y: Int)
