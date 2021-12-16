@@ -52,12 +52,6 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day16_test")
-    val testInput2 = readInput("Day16_test2")
-    val testInput3 = readInput("Day16_test3")
-    val testInput4 = readInput("Day16_test4")
-    val testInput5 = readInput("Day16_test5")
-    val testInput6 = readInput("Day16_test6")
-    val testInput7 = readInput("Day16_test7")
     //check(part1(testInput) == 15)
     //check(part2(testInput) == 1134)
 
@@ -109,12 +103,10 @@ data class OperatorPacket(val version: Int, val type: Int, val lengthType: Lengt
     }
 }
 
-enum class LengthType(bit: Int) {
-    LENGTH(0),
-    AMOUNT(1)
+enum class LengthType() {
+    LENGTH,
+    AMOUNT
 }
-
-fun String.addLeadingZeroes() = this.padStart(5, '0')
 
 /**
  * Removes the first n elements from this deque and returns those n elements as a list.
