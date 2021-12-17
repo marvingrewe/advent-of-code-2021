@@ -100,6 +100,16 @@ fun Grid.getNeighbours(position: Point): List<Point> = listOfNotNull(
 
 fun Grid.moveCost(to: Point) = this[to.second][to.first]
 
+fun highestTriangularBelow(n: Int): Int {
+    var highest = 0
+    var tooHigh = false
+    while (!tooHigh) {
+        val current = (highest + 1) * (highest + 2) / 2
+        if (current > n) tooHigh = true else highest++
+    }
+    return highest
+}
+
 typealias Line = Pair<Point, Point>
 
 typealias Grid = List<List<Int>>
