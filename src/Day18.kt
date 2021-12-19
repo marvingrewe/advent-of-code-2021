@@ -116,27 +116,27 @@ class SnailfishNumber(
     private fun addUpLeft(value: Int, previous: SnailfishNumber) {
         val left = checkNotNull(leftChild)
         if (left !== previous)
-            left.addDownLeft(value, this)
+            left.addDownLeft(value)
         else parent?.addUpLeft(value, this)
     }
 
-    private fun addDownLeft(value: Int, previous: SnailfishNumber) {
+    private fun addDownLeft(value: Int) {
         if (this.value != null)
             this.value += value
-        else rightChild?.addDownLeft(value, this)
+        else rightChild?.addDownLeft(value)
     }
 
     private fun addUpRight(value: Int, previous: SnailfishNumber) {
         val right = checkNotNull(rightChild)
         if (right !== previous)
-            right.addDownRight(value, this)
+            right.addDownRight(value)
         else parent?.addUpRight(value, this)
     }
 
-    private fun addDownRight(value: Int, previous: SnailfishNumber) {
+    private fun addDownRight(value: Int) {
         if (this.value != null)
             this.value += value
-        else leftChild?.addDownRight(value, this)
+        else leftChild?.addDownRight(value)
     }
 
     private fun splitIfNeeded(): Boolean {
@@ -155,13 +155,13 @@ class SnailfishNumber(
     }
 
     val magnitude: Int
-    get() {
-        val leftChildToAdd = leftChild
-        val rightChildToAdd = rightChild
-        return value
-            ?: if (leftChildToAdd != null && rightChildToAdd != null) 3 * leftChildToAdd.magnitude + 2 * rightChildToAdd.magnitude
-            else throw IllegalStateException()
-    }
+        get() {
+            val leftChildToAdd = leftChild
+            val rightChildToAdd = rightChild
+            return value
+                ?: if (leftChildToAdd != null && rightChildToAdd != null) 3 * leftChildToAdd.magnitude + 2 * rightChildToAdd.magnitude
+                else throw IllegalStateException()
+        }
 
     override fun toString(): String {
         return if (value != null) value.toString()
