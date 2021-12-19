@@ -16,7 +16,8 @@ fun main() {
         val xMax = xRange.last // maximum velocity to still hit upper x bound
         val yMin = yRange.first // minimum velocity to still hit lower y bound
         val yMax = abs(yRange.first) // maximum velocity to still hit lower y bound
-        val validVelocities = mutableSetOf<Pair<Int, Int>>()
+        var validVelocities = 0
+        var iterations = 0
 
         for (x in xMin..xMax) {
             for (y in yMin..yMax) {
@@ -24,16 +25,21 @@ fun main() {
                 var yPos = 0
                 var xVel = x
                 var yVel = y
-                while (xPos < xRange.last && yPos > yRange.first) {
+                while (xPos <= xRange.last && yPos >= yRange.first) {
+                    iterations++
                     xPos += xVel
                     yPos += yVel
                     if (xVel > 0) xVel-- else if (xVel < 0) xVel++
                     yVel--
-                    if (xPos in xRange && yPos in yRange) validVelocities.add(x to y)
+                    if (xPos in xRange && yPos in yRange) {
+                        validVelocities++
+                        break
+                    }
                 }
             }
         }
-        return validVelocities.size
+        println(iterations)
+        return validVelocities
     }
 
     // test if implementation meets criteria from the description, like:
