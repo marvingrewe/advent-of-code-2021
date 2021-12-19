@@ -107,12 +107,3 @@ enum class LengthType() {
     LENGTH,
     AMOUNT
 }
-
-/**
- * Removes the first n elements from this deque and returns those n elements as a list.
- */
-fun ArrayDeque<Char>.removeFirst(n: Int): List<Char> {
-    val temp = mutableListOf<Char>()
-    repeat(n) { temp.add(this.removeFirst()) }
-    return temp
-}

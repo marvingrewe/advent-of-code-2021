@@ -2,6 +2,7 @@ import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.*
+import kotlin.collections.ArrayDeque
 import kotlin.math.abs
 
 /**
@@ -109,6 +110,16 @@ fun highestTriangularBelow(n: Int): Int {
     }
     return highest
 }
+
+/**
+ * Removes the first n elements from this deque and returns those n elements as a list.
+ */
+fun ArrayDeque<Char>.removeFirst(n: Int): List<Char> {
+    val temp = mutableListOf<Char>()
+    repeat(n) { temp.add(this.removeFirst()) }
+    return temp
+}
+
 
 typealias Line = Pair<Point, Point>
 
