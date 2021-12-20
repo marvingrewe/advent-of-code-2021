@@ -18,13 +18,13 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
 /**
  * Grants safe access to int-value in 2D array
  */
-fun List<List<Int>>.getSafe(x: Int, y: Int): Int? =
+fun <T> List<List<T>>.getSafe(x: Int, y: Int): T? =
     this.getOrNull(y)?.getOrNull(x)
 
 /**
  * Grants safe access to coordinates of 2D array
  */
-fun List<List<Int>>.getSafePoint(x: Int, y: Int): Pair<Int, Int>? =
+fun <T> List<List<T>>.getSafePoint(x: Int, y: Int): Pair<Int, Int>? =
     if (this.getOrNull(y)?.getOrNull(x) != null) {
         Pair(x, y)
     } else {
