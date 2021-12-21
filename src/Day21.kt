@@ -31,7 +31,7 @@ fun main() {
         return min(player1.score, player2.score) * diceRolls
     }
 
-    fun dfs(
+    fun bfs(
         depth: Int,
         worlds: Long,
         player: Player,
@@ -45,7 +45,7 @@ fun main() {
             for (permutation in permutations) {
                 val newPos = (player.pos + permutation.key - 1) % 10 + 1
                 val newScore = player.score + newPos
-                dfs(
+                bfs(
                     depth + 1,
                     worlds * permutation.value,
                     player.copy(pos = newPos, score = newScore),
@@ -66,8 +66,8 @@ fun main() {
         val p1NotWonPermutations = mutableMapOf<Int, Long>()
         val p2NotWonPermutations = mutableMapOf<Int, Long>()
 
-        dfs(0, 1, player1, p1Permutations, p1NotWonPermutations)
-        dfs(0, 1, player2, p2Permutations, p2NotWonPermutations)
+        bfs(0, 1, player1, p1Permutations, p1NotWonPermutations)
+        bfs(0, 1, player2, p2Permutations, p2NotWonPermutations)
 
         for (i in p1Permutations.keys) {
             p1Worlds += (p1Permutations[i] ?: 1) * (p2NotWonPermutations[i - 1] ?: 1)
