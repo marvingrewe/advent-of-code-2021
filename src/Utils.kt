@@ -36,6 +36,7 @@ fun <T> List<List<T>>.getSafePoint(x: Int, y: Int): Pair<Int, Int>? =
  */
 operator fun Int?.plus(other: Int): Int = this?.plus(other) ?: other
 operator fun Int?.minus(other: Int): Int = this?.minus(other) ?: -other
+operator fun Long?.plus(other: Long): Long = this?.plus(other) ?: other
 
 fun heuristicDistance(start: Point, end: Point): Int {
     val dx = abs(start.first - end.first)
