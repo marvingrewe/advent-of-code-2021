@@ -38,6 +38,8 @@ operator fun Int?.plus(other: Int): Int = this?.plus(other) ?: other
 operator fun Int?.minus(other: Int): Int = this?.minus(other) ?: -other
 operator fun Long?.plus(other: Long): Long = this?.plus(other) ?: other
 
+fun Long?.concat(other: Int): Long = "${this ?: ""}$other".toLong()
+
 fun heuristicDistance(start: Point, end: Point): Int {
     val dx = abs(start.first - end.first)
     val dy = abs(start.second - end.second)
